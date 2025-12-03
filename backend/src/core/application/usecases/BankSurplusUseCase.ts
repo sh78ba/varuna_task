@@ -1,6 +1,6 @@
-import { BankRepository } from '../ports/BankRepository';
-import { ComplianceRepository } from '../ports/ComplianceRepository';
-import { BankEntry } from '../domain/models/BankEntry';
+import { BankRepository } from '../../ports/BankRepository';
+import { ComplianceRepository } from '../../ports/ComplianceRepository';
+import { BankEntry } from '../../domain/models/BankEntry';
 
 export interface BankSurplusRequest {
   shipId: string;

@@ -34,9 +34,9 @@ export function createComplianceRoutes(
         fuelConsumption,
       });
 
-      res.json(cb);
+      return res.json(cb);
     } catch (error: any) {
-      res.status(500).json({ error: error.message });
+      return res.status(500).json({ error: error.message });
     }
   });
 
@@ -54,9 +54,9 @@ export function createComplianceRoutes(
         parseInt(year as string)
       );
 
-      res.json(adjustedCb);
+      return res.json(adjustedCb);
     } catch (error: any) {
-      res.status(404).json({ error: error.message });
+      return res.status(404).json({ error: error.message });
     }
   });
 

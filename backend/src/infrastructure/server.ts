@@ -39,7 +39,7 @@ app.use('/banking', createBankingRoutes(bankRepository, complianceRepository));
 app.use('/pools', createPoolRoutes(poolRepository, complianceRepository));
 
 // Health check
-app.get('/health', (req, res) => {
+app.get('/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 

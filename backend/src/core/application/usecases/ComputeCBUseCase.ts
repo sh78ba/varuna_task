@@ -1,6 +1,6 @@
-import { ComplianceRepository } from '../ports/ComplianceRepository';
-import { ComplianceBalance } from '../domain/models/ComplianceBalance';
-import { calculateComplianceBalance, calculateEnergyInScope, getTargetIntensity } from '../domain/services/ComplianceCalculator';
+import { ComplianceRepository } from '../../ports/ComplianceRepository';
+import { ComplianceBalance } from '../../domain/models/ComplianceBalance';
+import { calculateComplianceBalance, calculateEnergyInScope, getTargetIntensity } from '../../domain/services/ComplianceCalculator';
 
 export interface ComputeCBRequest {
   shipId: string;

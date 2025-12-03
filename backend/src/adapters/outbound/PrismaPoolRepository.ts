@@ -33,7 +33,7 @@ export class PrismaPoolRepository implements PoolRepository {
           create: data.members.map(member => ({
             shipId: member.shipId,
             cbBefore: member.cbBefore,
-            cbAfter: 'cbAfter' in member ? member.cbAfter : member.cbBefore,
+            cbAfter: ('cbAfter' in member ? member.cbAfter : member.cbBefore) as number,
           })),
         },
       },

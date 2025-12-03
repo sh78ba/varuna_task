@@ -1,5 +1,5 @@
-import { RouteRepository } from '../ports/RouteRepository';
-import { Route } from '../domain/models/Route';
+import { RouteRepository } from '../../ports/RouteRepository';
+import { Route } from '../../domain/models/Route';
 
 export class SetBaselineUseCase {
   constructor(private routeRepository: RouteRepository) {}

@@ -1,5 +1,5 @@
-import { RouteRepository } from '../ports/RouteRepository';
-import { Route, RouteFilters } from '../domain/models/Route';
+import { RouteRepository } from '../../ports/RouteRepository';
+import { Route, RouteFilters } from '../../domain/models/Route';
 
 export class GetRoutesUseCase {
   constructor(private routeRepository: RouteRepository) {}

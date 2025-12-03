@@ -1,6 +1,6 @@
-import { ComplianceRepository } from '../ports/ComplianceRepository';
-import { BankRepository } from '../ports/BankRepository';
-import { AdjustedComplianceBalance } from '../domain/models/ComplianceBalance';
+import { ComplianceRepository } from '../../ports/ComplianceRepository';
+import { BankRepository } from '../../ports/BankRepository';
+import { AdjustedComplianceBalance } from '../../domain/models/ComplianceBalance';
 
 export class GetAdjustedCBUseCase {
   constructor(

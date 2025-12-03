@@ -1,6 +1,6 @@
-import { RouteRepository } from '../ports/RouteRepository';
-import { RouteComparison, RouteFilters } from '../domain/models/Route';
-import { calculatePercentDiff, getTargetIntensity, isCompliant } from '../domain/services/ComplianceCalculator';
+import { RouteRepository } from '../../ports/RouteRepository';
+import { RouteComparison, RouteFilters } from '../../domain/models/Route';
+import { calculatePercentDiff, getTargetIntensity, isCompliant } from '../../domain/services/ComplianceCalculator';
 
 export class ComputeComparisonUseCase {
   constructor(private routeRepository: RouteRepository) {}

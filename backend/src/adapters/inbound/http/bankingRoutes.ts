@@ -26,9 +26,9 @@ export function createBankingRoutes(
         ? await bankRepository.findByShipAndYear(shipId as string, parseInt(year as string))
         : await bankRepository.findByShip(shipId as string);
 
-      res.json(records);
+      return res.json(records);
     } catch (error: any) {
-      res.status(500).json({ error: error.message });
+      return res.status(500).json({ error: error.message });
     }
   });
 
@@ -47,9 +47,9 @@ export function createBankingRoutes(
         amountGco2eq: parseFloat(amountGco2eq),
       });
 
-      res.status(201).json(bankEntry);
+      return res.status(201).json(bankEntry);
     } catch (error: any) {
-      res.status(400).json({ error: error.message });
+      return res.status(400).json({ error: error.message });
     }
   });
 
@@ -68,9 +68,9 @@ export function createBankingRoutes(
         amountGco2eq: parseFloat(amountGco2eq),
       });
 
-      res.json(summary);
+      return res.json(summary);
     } catch (error: any) {
-      res.status(400).json({ error: error.message });
+      return res.status(400).json({ error: error.message });
     }
   });
 

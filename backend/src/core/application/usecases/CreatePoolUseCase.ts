@@ -1,7 +1,7 @@
-import { PoolRepository } from '../ports/PoolRepository';
-import { ComplianceRepository } from '../ports/ComplianceRepository';
-import { CreatePoolRequest, Pool } from '../domain/models/Pool';
-import { PoolValidator } from '../domain/services/PoolValidator';
+import { PoolRepository } from '../../ports/PoolRepository';
+import { ComplianceRepository } from '../../ports/ComplianceRepository';
+import { CreatePoolRequest, Pool } from '../../domain/models/Pool';
+import { PoolValidator } from '../../domain/services/PoolValidator';
 
 export class CreatePoolUseCase {
   private poolValidator: PoolValidator;

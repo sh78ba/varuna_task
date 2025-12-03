@@ -21,9 +21,9 @@ export function createPoolRoutes(
       }
 
       const pool = await createPoolUseCase.execute({ year, members });
-      res.status(201).json(pool);
+      return res.status(201).json(pool);
     } catch (error: any) {
-      res.status(400).json({ error: error.message });
+      return res.status(400).json({ error: error.message });
     }
   });
 
@@ -37,9 +37,9 @@ export function createPoolRoutes(
       }
 
       const pools = await poolRepository.findByYear(parseInt(year as string));
-      res.json(pools);
+      return res.json(pools);
     } catch (error: any) {
-      res.status(500).json({ error: error.message });
+      return res.status(500).json({ error: error.message });
     }
   });
 
@@ -53,9 +53,9 @@ export function createPoolRoutes(
         return res.status(404).json({ error: 'Pool not found' });
       }
 
-      res.json(pool);
+      return res.json(pool);
     } catch (error: any) {
-      res.status(500).json({ error: error.message });
+      return res.status(500).json({ error: error.message });
     }
   });
 
