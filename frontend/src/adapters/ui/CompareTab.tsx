@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { RouteComparison, RouteFilters } from '../../core/domain/models/Route';
+import type { RouteComparison, RouteFilters } from '../../core/domain/models/Route';
 import { RouteApiAdapter } from '../../adapters/infrastructure/RouteApiAdapter';
 import {
   BarChart,
@@ -50,9 +50,12 @@ export const CompareTab: React.FC = () => {
   }));
 
   return (
-    <div className="space-y-6">
-      <div className="bg-white p-6 rounded-lg shadow">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">Compare Routes</h2>
+    <div className="space-y-6 animate-fadeIn">
+      <div className="bg-gradient-to-r from-green-600 to-teal-600 text-white p-6 rounded-xl shadow-lg">
+        <h2 className="text-3xl font-bold mb-2">📊 Route Comparison</h2>
+        <p className="text-green-100">Compare GHG intensity against baseline and target values</p>
+      </div>
+      <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100">
 
         {/* Filters */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">

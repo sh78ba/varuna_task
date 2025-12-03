@@ -1,5 +1,5 @@
 import apiClient from './apiClient';
-import { Pool, CreatePoolRequest } from '../../core/domain/models/Pool';
+import type { Pool, CreatePoolRequest } from '../../core/domain/models/Pool';
 
 export class PoolApiAdapter {
   async createPool(request: CreatePoolRequest): Promise<Pool> {

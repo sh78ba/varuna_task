@@ -75,29 +75,25 @@ async function main() {
 
   console.log(`Created ${routes.count} routes`);
 
-  // Seed some compliance balance records for testing
+  // Seed comprehensive compliance balance records for testing
+  // Cover years 2024, 2025, 2026 and ships SHIP001-SHIP004
   await prisma.shipCompliance.createMany({
     data: [
-      {
-        shipId: 'SHIP001',
-        year: 2024,
-        cbGco2eq: 15000, // Surplus
-      },
-      {
-        shipId: 'SHIP002',
-        year: 2024,
-        cbGco2eq: -8000, // Deficit
-      },
-      {
-        shipId: 'SHIP003',
-        year: 2024,
-        cbGco2eq: 12000, // Surplus
-      },
-      {
-        shipId: 'SHIP004',
-        year: 2025,
-        cbGco2eq: -5000, // Deficit
-      },
+      // Year 2024
+      { shipId: 'SHIP001', year: 2024, cbGco2eq: 15000 },  // Surplus
+      { shipId: 'SHIP002', year: 2024, cbGco2eq: -8000 },  // Deficit
+      { shipId: 'SHIP003', year: 2024, cbGco2eq: 12000 },  // Surplus
+      { shipId: 'SHIP004', year: 2024, cbGco2eq: -5000 },  // Deficit
+      // Year 2025
+      { shipId: 'SHIP001', year: 2025, cbGco2eq: 18000 },  // Surplus
+      { shipId: 'SHIP002', year: 2025, cbGco2eq: -6000 },  // Deficit
+      { shipId: 'SHIP003', year: 2025, cbGco2eq: 14000 },  // Surplus
+      { shipId: 'SHIP004', year: 2025, cbGco2eq: -7000 },  // Deficit
+      // Year 2026
+      { shipId: 'SHIP001', year: 2026, cbGco2eq: 20000 },  // Surplus
+      { shipId: 'SHIP002', year: 2026, cbGco2eq: -4000 },  // Deficit
+      { shipId: 'SHIP003', year: 2026, cbGco2eq: 16000 },  // Surplus
+      { shipId: 'SHIP004', year: 2026, cbGco2eq: -9000 },  // Deficit
     ],
   });
 

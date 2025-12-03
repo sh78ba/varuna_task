@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { AdjustedComplianceBalance } from '../../core/domain/models/ComplianceBalance';
-import { Pool, CreatePoolRequest } from '../../core/domain/models/Pool';
+import type { AdjustedComplianceBalance } from '../../core/domain/models/ComplianceBalance';
+import type { Pool, CreatePoolRequest } from '../../core/domain/models/Pool';
 import { ComplianceApiAdapter } from '../../adapters/infrastructure/ComplianceApiAdapter';
 import { PoolApiAdapter } from '../../adapters/infrastructure/PoolApiAdapter';
 
@@ -98,9 +98,12 @@ export const PoolingTab: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="bg-white p-6 rounded-lg shadow">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">Pooling (Article 21)</h2>
+    <div className="space-y-6 animate-fadeIn">
+      <div className="bg-gradient-to-r from-orange-600 to-red-600 text-white p-6 rounded-xl shadow-lg">
+        <h2 className="text-3xl font-bold mb-2">🤝 Compliance Pooling</h2>
+        <p className="text-orange-100">Create and manage ship compliance pools for balanced distribution</p>
+      </div>
+      <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100">
 
         {/* Year Selection */}
         <div className="mb-6">

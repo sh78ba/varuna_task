@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { ComplianceBalance } from '../../core/domain/models/ComplianceBalance';
-import { BankEntry, BankingSummary } from '../../core/domain/models/BankEntry';
+import type { ComplianceBalance } from '../../core/domain/models/ComplianceBalance';
+import type { BankEntry, BankingSummary } from '../../core/domain/models/BankEntry';
 import { ComplianceApiAdapter } from '../../adapters/infrastructure/ComplianceApiAdapter';
 import { BankingApiAdapter } from '../../adapters/infrastructure/BankingApiAdapter';
 

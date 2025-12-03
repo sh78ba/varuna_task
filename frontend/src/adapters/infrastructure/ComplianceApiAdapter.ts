@@ -1,5 +1,5 @@
 import apiClient from './apiClient';
-import { ComplianceBalance, AdjustedComplianceBalance } from '../../core/domain/models/ComplianceBalance';
+import type { ComplianceBalance, AdjustedComplianceBalance } from '../../core/domain/models/ComplianceBalance';
 
 export class ComplianceApiAdapter {
   async getComplianceBalance(

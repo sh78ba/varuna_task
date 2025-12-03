@@ -1,5 +1,5 @@
-import { PoolValidator } from '../../../src/core/domain/services/PoolValidator';
-import { CreatePoolRequest } from '../../../src/core/domain/models/Pool';
+import { PoolValidator } from '../PoolValidator';
+import { CreatePoolRequest } from '../../models/Pool';
 
 describe('PoolValidator', () => {
   let validator: PoolValidator;
@@ -77,8 +77,8 @@ describe('PoolValidator', () => {
       const result = validator.allocatePoolBalances(members);
 
       // SHIP001 should transfer to SHIP002
-      const ship1 = result.find((r) => r.shipId === 'SHIP001');
-      const ship2 = result.find((r) => r.shipId === 'SHIP002');
+      const ship1 = result.find((r: any) => r.shipId === 'SHIP001');
+      const ship2 = result.find((r: any) => r.shipId === 'SHIP002');
 
       expect(ship1?.cbAfter).toBe(7000); // 15000 - 8000
       expect(ship2?.cbAfter).toBe(0); // -8000 + 8000
@@ -93,9 +93,9 @@ describe('PoolValidator', () => {
 
       const result = validator.allocatePoolBalances(members);
 
-      const ship1 = result.find((r) => r.shipId === 'SHIP001');
-      const ship2 = result.find((r) => r.shipId === 'SHIP002');
-      const ship3 = result.find((r) => r.shipId === 'SHIP003');
+      const ship1 = result.find((r: any) => r.shipId === 'SHIP001');
+      const ship2 = result.find((r: any) => r.shipId === 'SHIP002');
+      const ship3 = result.find((r: any) => r.shipId === 'SHIP003');
 
       expect(ship1?.cbAfter).toBe(12000); // 20000 - 8000
       expect(ship2?.cbAfter).toBe(0);

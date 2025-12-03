@@ -1,5 +1,5 @@
 import apiClient from './apiClient';
-import { BankEntry, BankingSummary } from '../../core/domain/models/BankEntry';
+import type { BankEntry, BankingSummary } from '../../core/domain/models/BankEntry';
 
 export class BankingApiAdapter {
   async getBankRecords(shipId: string, year?: number): Promise<BankEntry[]> {

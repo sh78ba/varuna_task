@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route, RouteFilters } from '../../core/domain/models/Route';
+import type { Route, RouteFilters } from '../../core/domain/models/Route';
 import { RouteApiAdapter } from '../../adapters/infrastructure/RouteApiAdapter';
 
 const routeApi = new RouteApiAdapter();
@@ -45,24 +45,28 @@ export const RoutesTab: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="bg-white p-6 rounded-lg shadow">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">Routes</h2>
+    <div className="space-y-6 animate-fadeIn">
+      {/* Header Card */}
+      <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-6 rounded-xl shadow-lg">
+        <h2 className="text-3xl font-bold mb-2">🗺️ Route Management</h2>
+        <p className="text-blue-100">Manage vessel routes and set baseline configurations</p>
+      </div>
 
+      <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100">
         {/* Filters */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Vessel Type
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              🚢 Vessel Type
             </label>
             <select
               value={filters.vesselType || ''}
               onChange={(e) =>
                 setFilters({ ...filters, vesselType: e.target.value || undefined })
               }
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
             >
-              <option value="">All</option>
+              <option value="">All Vessels</option>
               {vesselTypes.map((type) => (
                 <option key={type} value={type}>
                   {type}
@@ -72,17 +76,17 @@ export const RoutesTab: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Fuel Type
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              ⛽ Fuel Type
             </label>
             <select
               value={filters.fuelType || ''}
               onChange={(e) =>
                 setFilters({ ...filters, fuelType: e.target.value || undefined })
               }
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
             >
-              <option value="">All</option>
+              <option value="">All Fuels</option>
               {fuelTypes.map((type) => (
                 <option key={type} value={type}>
                   {type}
@@ -92,7 +96,7 @@ export const RoutesTab: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Year</label>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">📅 Year</label>
             <select
               value={filters.year || ''}
               onChange={(e) =>
@@ -101,9 +105,9 @@ export const RoutesTab: React.FC = () => {
                   year: e.target.value ? parseInt(e.target.value) : undefined,
                 })
               }
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
             >
-              <option value="">All</option>
+              <option value="">All Years</option>
               {years.map((year) => (
                 <option key={year} value={year}>
                   {year}
@@ -115,102 +119,123 @@ export const RoutesTab: React.FC = () => {
 
         {/* Messages */}
         {error && (
-          <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
-            {error}
+          <div className="mb-6 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 rounded-lg animate-slideIn">
+            <div className="flex items-center">
+              <span className="text-xl mr-2">⚠️</span>
+              <span className="font-medium">{error}</span>
+            </div>
           </div>
         )}
         {success && (
-          <div className="mb-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded">
-            {success}
+          <div className="mb-6 p-4 bg-green-50 border-l-4 border-green-500 text-green-700 rounded-lg animate-slideIn">
+            <div className="flex items-center">
+              <span className="text-xl mr-2">✅</span>
+              <span className="font-medium">{success}</span>
+            </div>
           </div>
         )}
 
         {/* Table */}
         {loading ? (
-          <div className="text-center py-8 text-gray-500">Loading...</div>
+          <div className="text-center py-12">
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent"></div>
+            <p className="mt-4 text-gray-500 font-medium">Loading routes...</p>
+          </div>
         ) : (
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto rounded-lg border border-gray-200">
             <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+              <thead className="bg-gradient-to-r from-gray-50 to-gray-100">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
                     Route ID
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
                     Vessel Type
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
                     Fuel Type
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
                     Year
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
                     GHG Intensity (gCO₂e/MJ)
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
                     Fuel (t)
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
                     Distance (km)
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
                     Emissions (t)
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
                     Action
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-white divide-y divide-gray-100">
                 {routes.map((route) => (
-                  <tr key={route.id} className={route.isBaseline ? 'bg-blue-50' : ''}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  <tr 
+                    key={route.id} 
+                    className={`transition-all hover:bg-gray-50 ${route.isBaseline ? 'bg-blue-50 hover:bg-blue-100' : ''}`}
+                  >
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">
                       {route.routeId}
                       {route.isBaseline && (
-                        <span className="ml-2 px-2 py-1 text-xs bg-blue-500 text-white rounded">
-                          Baseline
+                        <span className="ml-2 px-3 py-1 text-xs font-semibold bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-full">
+                          ⭐ Baseline
                         </span>
                       )}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                       {route.vesselType}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {route.fuelType}
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                      <span className="px-2 py-1 bg-gray-100 rounded-md font-medium">
+                        {route.fuelType}
+                      </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                       {route.year}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900">
                       {route.ghgIntensity.toFixed(2)}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                       {route.fuelConsumption.toLocaleString()}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                       {route.distance.toLocaleString()}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                       {route.totalEmissions.toLocaleString()}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
                       <button
                         onClick={() => handleSetBaseline(route.routeId)}
                         disabled={route.isBaseline}
-                        className={`px-4 py-2 rounded ${
+                        className={`px-5 py-2 rounded-lg font-semibold transition-all ${
                           route.isBaseline
-                            ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                            : 'bg-blue-500 text-white hover:bg-blue-600'
+                            ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                            : 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white hover:from-blue-600 hover:to-indigo-600 shadow-md hover:shadow-lg'
                         }`}
                       >
-                        Set Baseline
+                        {route.isBaseline ? '✓ Baseline' : 'Set Baseline'}
                       </button>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
+          </div>
+        )}
+        
+        {routes.length === 0 && !loading && (
+          <div className="text-center py-12">
+            <span className="text-6xl">🔍</span>
+            <p className="mt-4 text-gray-500 font-medium">No routes found</p>
           </div>
         )}
       </div>

@@ -1,5 +1,5 @@
 import apiClient from './apiClient';
-import { Route, RouteComparison, RouteFilters } from '../../core/domain/models/Route';
+import type { Route, RouteComparison, RouteFilters } from '../../core/domain/models/Route';
 
 export class RouteApiAdapter {
   async getRoutes(filters?: RouteFilters): Promise<Route[]> {

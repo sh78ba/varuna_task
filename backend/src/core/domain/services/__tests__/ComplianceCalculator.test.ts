@@ -1,4 +1,4 @@
-import { calculateComplianceBalance, calculateEnergyInScope, calculatePercentDiff, getTargetIntensity, isCompliant } from '../../../src/core/domain/services/ComplianceCalculator';
+import { calculateComplianceBalance, calculateEnergyInScope, calculatePercentDiff, getTargetIntensity, isCompliant } from '../ComplianceCalculator';
 
 describe('ComplianceCalculator', () => {
   describe('getTargetIntensity', () => {
