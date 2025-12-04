@@ -1,0 +1,25 @@
+# Process ID files
+.backend.pid
+.frontend.pid
+
+# Log files
+backend.log
+frontend.log
+
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# Environment variables
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
