@@ -4,6 +4,32 @@ A full-stack web application for managing FuelEU Maritime compliance in accordan
 
 ---
 
+## 📸 Screenshots
+
+### Routes Management
+![Routes Tab - Overview](images/1.png)
+*Track and manage vessel routes with filtering capabilities*
+
+![Routes Tab - Details](images/2.png)
+*View detailed route information and set baseline*
+
+### Route Comparison
+![Compare Tab - Analysis](images/3.png)
+*Compare routes against baseline with compliance indicators*
+
+![Compare Tab - Visualization](images/4.png)
+*Visual analytics and percentage differences*
+
+### Banking Operations
+![Banking Tab](images/5.png)
+*Bank surplus compliance credits and apply to deficits*
+
+### Pooling Arrangements
+![Pooling Tab](images/6.png)
+*Create and manage pooling arrangements between ships*
+
+---
+
 ## 📋 Overview
 
 This platform helps maritime operators:
