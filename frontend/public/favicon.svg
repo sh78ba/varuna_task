@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Maritime/Ship Icon with Varuna Marine Colors -->
+  <defs>
+    <linearGradient id="shipGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#14b8a6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0d9488;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background Circle -->
+  <circle cx="50" cy="50" r="48" fill="#0f172a" stroke="url(#shipGradient)" stroke-width="3"/>
+  
+  <!-- Ship Icon -->
+  <!-- Hull -->
+  <path d="M 25 55 L 30 70 L 70 70 L 75 55 Z" fill="url(#shipGradient)" stroke="#14b8a6" stroke-width="1.5"/>
+  
+  <!-- Deck -->
+  <rect x="30" y="50" width="40" height="5" fill="#74c5b5" rx="1"/>
+  
+  <!-- Mast -->
+  <line x1="50" y1="50" x2="50" y2="25" stroke="#14b8a6" stroke-width="2.5" stroke-linecap="round"/>
+  
+  <!-- Sails -->
+  <path d="M 50 28 L 35 35 L 50 42 Z" fill="#74c5b5" opacity="0.9"/>
+  <path d="M 50 35 L 65 42 L 50 49 Z" fill="#14b8a6" opacity="0.9"/>
+  
+  <!-- Waves -->
+  <path d="M 20 75 Q 27 72 35 75 T 50 75 T 65 75 T 80 75" 
+        stroke="#14b8a6" stroke-width="2" fill="none" opacity="0.6"/>
+  <path d="M 15 80 Q 25 77 35 80 T 55 80 T 75 80 T 85 80" 
+        stroke="#0d9488" stroke-width="1.5" fill="none" opacity="0.4"/>
+</svg>
