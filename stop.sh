@@ -28,6 +28,24 @@ if [ -f .frontend.pid ]; then
   rm .frontend.pid
 fi
 
+# Kill any remaining node/vite processes on ports 3000 and 5173
+echo ""
+echo "🔍 Checking for remaining processes..."
+
+# Kill processes on port 3000 (backend)
+BACKEND_PORT_PID=$(lsof -ti:3000)
+if [ ! -z "$BACKEND_PORT_PID" ]; then
+  kill -9 $BACKEND_PORT_PID
+  echo "✅ Killed process on port 3000"
+fi
+
+# Kill processes on port 5173 (frontend)
+FRONTEND_PORT_PID=$(lsof -ti:5173)
+if [ ! -z "$FRONTEND_PORT_PID" ]; then
+  kill -9 $FRONTEND_PORT_PID
+  echo "✅ Killed process on port 5173"
+fi
+
 echo ""
 echo "🧹 Cleaning up log files..."
 rm -f backend.log frontend.log

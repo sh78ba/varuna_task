@@ -6,6 +6,20 @@
 echo "🚀 Starting FuelEU Maritime Application..."
 echo ""
 
+# Check and kill any existing processes on required ports
+echo "🔍 Checking for existing processes on ports 3000 and 5173..."
+if lsof -ti:3000 > /dev/null 2>&1; then
+  echo "⚠️  Port 3000 is in use. Stopping existing processes..."
+  lsof -ti:3000 | xargs kill -9 2>/dev/null || true
+fi
+
+if lsof -ti:5173 > /dev/null 2>&1; then
+  echo "⚠️  Port 5173 is in use. Stopping existing processes..."
+  lsof -ti:5173 | xargs kill -9 2>/dev/null || true
+fi
+
+sleep 1
+
 # Seed database
 echo "🌱 Seeding database..."
 cd backend
