@@ -1,6 +1,6 @@
-import { ComputeComparisonUseCase } from '../ComputeComparisonUseCase';
-import type { RouteRepository } from '../../../ports/RouteRepository';
-import type { Route } from '../../../domain/models/Route';
+import { ComputeComparisonUseCase } from '../core/application/usecases/ComputeComparisonUseCase';
+import { RouteRepository } from '../core/ports/RouteRepository';
+import type { Route } from '../core/domain/models/Route';
 
 describe('ComputeComparisonUseCase', () => {
   let useCase: ComputeComparisonUseCase;

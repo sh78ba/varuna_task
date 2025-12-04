@@ -1,5 +1,21 @@
 # Running Services
 
+## ✅ Quick Start
+
+The easiest way to start the application:
+
+```bash
+# Start both backend and frontend
+./start.sh
+
+# Stop both servers
+./stop.sh
+
+# View logs
+tail -f backend.log
+tail -f frontend.log
+```
+
 ## ✅ Project Successfully Started
 
 Both backend and frontend are now running!

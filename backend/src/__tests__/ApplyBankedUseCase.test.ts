@@ -1,8 +1,8 @@
-import { ApplyBankedUseCase, ApplyBankedRequest } from '../ApplyBankedUseCase';
-import type { BankRepository } from '../../../ports/BankRepository';
-import type { ComplianceRepository } from '../../../ports/ComplianceRepository';
-import type { BankEntry, BankingSummary } from '../../../domain/models/BankEntry';
-import type { ComplianceBalance } from '../../../domain/models/ComplianceBalance';
+import { ApplyBankedUseCase, ApplyBankedRequest } from '../core/application/usecases/ApplyBankedUseCase';
+import type { BankRepository } from '../core/ports/BankRepository';
+import type { ComplianceRepository } from '../core/ports/ComplianceRepository';
+import type { BankEntry, BankingSummary } from '../core/domain/models/BankEntry';
+import type { ComplianceBalance } from '../core/domain/models/ComplianceBalance';
 
 describe('ApplyBankedUseCase', () => {
   let useCase: ApplyBankedUseCase;

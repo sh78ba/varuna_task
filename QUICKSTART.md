@@ -7,7 +7,26 @@ Before starting, ensure you have:
 - ✅ PostgreSQL 15+ installed and running
 - ✅ npm installed (`npm --version`)
 
-## 🚀 Quick Start (5 minutes)
+## 🚀 Quick Start (2 Options)
+
+### Option 1: Using Start Script (Easiest)
+
+```bash
+# From project root, start both servers
+./start.sh
+
+# Backend: http://localhost:3000
+# Frontend: http://localhost:5173
+
+# View logs
+tail -f backend.log
+tail -f frontend.log
+
+# Stop both servers
+./stop.sh
+```
+
+### Option 2: Manual Setup (5 minutes)
 
 ```bash
 # 1. Ensure PostgreSQL is running and create database

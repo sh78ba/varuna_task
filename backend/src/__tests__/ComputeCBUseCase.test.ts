@@ -1,6 +1,6 @@
-import { ComputeCBUseCase, ComputeCBRequest } from '../ComputeCBUseCase';
-import type { ComplianceRepository } from '../../../ports/ComplianceRepository';
-import type { ComplianceBalance } from '../../../domain/models/ComplianceBalance';
+import { ComputeCBUseCase, ComputeCBRequest } from '../core/application/usecases/ComputeCBUseCase';
+import type { ComplianceRepository } from '../core/ports/ComplianceRepository';
+import type { ComplianceBalance } from '../core/domain/models/ComplianceBalance';
 
 describe('ComputeCBUseCase', () => {
   let useCase: ComputeCBUseCase;

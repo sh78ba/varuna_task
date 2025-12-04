@@ -1,0 +1,707 @@
+
+> backend@1.0.0 test
+> jest
+
+PASS src/core/domain/services/__tests__/ComplianceCalculator.test.ts
+  ComplianceCalculator
+    getTargetIntensity
+      ✓ should return correct target intensity for 2025 (3 ms)
+      ✓ should return correct target intensity for 2030
+      ✓ should return baseline intensity for years before 2025
+      ✓ should return 2050 target for years after 2050 (1 ms)
+    calculateEnergyInScope
+      ✓ should calculate energy correctly
+      ✓ should handle zero fuel consumption
+    calculateComplianceBalance
+      ✓ should calculate positive CB for surplus (actual < target) (1 ms)
+      ✓ should calculate negative CB for deficit (actual > target)
+      ✓ should return zero CB when actual equals target
+    calculatePercentDiff
+      ✓ should calculate positive percentage difference
+      ✓ should calculate negative percentage difference (1 ms)
+      ✓ should return zero for equal values
+      ✓ should handle zero baseline
+    isCompliant
+      ✓ should return true when actual is less than target
+      ✓ should return true when actual equals target
+      ✓ should return false when actual exceeds target
+
+PASS src/core/domain/services/__tests__/PoolValidator.test.ts
+  PoolValidator
+    validate
+      ✓ should accept valid pool with 2 ships and positive total CB (22 ms)
+      ✓ should reject pool with less than 2 members
+      ✓ should reject pool with negative total CB (1 ms)
+      ✓ should accept pool with total CB equal to zero
+    allocatePoolBalances
+      ✓ should allocate surplus to deficit ships
+      ✓ should handle multiple deficit ships
+      ✓ should not modify balances if all are surplus
+    validateAllocations
+      ✓ should accept valid allocations
+      ✓ should reject if deficit ship exits worse
+      ✓ should reject if surplus ship exits negative
+
+PASS src/__tests__/ComputeCBUseCase.test.ts
+  ComputeCBUseCase
+    execute
+      ✓ should compute positive CB for surplus (actual < target) (2 ms)
+      ✓ should compute negative CB for deficit (actual > target) (1 ms)
+      ✓ should compute zero CB when actual equals target
+      ✓ should use correct target intensity for different years (1 ms)
+      ✓ should calculate energy in scope correctly
+      ✓ should handle zero fuel consumption
+      ✓ should call upsert to create or update compliance balance
+      ✓ should handle large fuel consumption values
+
+PASS src/__tests__/BankSurplusUseCase.test.ts
+  BankSurplusUseCase
+    execute
+      ✓ should bank surplus successfully when ship has positive CB (15 ms)
+      ✓ should throw error when amount is zero or negative (22 ms)
+      ✓ should throw error when no compliance record exists (1 ms)
+      ✓ should throw error when ship has deficit (negative CB)
+      ✓ should throw error when ship has zero CB
+      ✓ should throw error when amount exceeds available surplus (1 ms)
+      ✓ should allow banking entire surplus
+      ✓ should create bank entry with isApplied set to false
+      ✓ should handle multiple banking operations for same ship (1 ms)
+      ✓ should validate compliance exists before creating bank entry
+
+PASS src/__tests__/ApplyBankedUseCase.test.ts
+  ApplyBankedUseCase
+    execute
+      ✓ should apply banked surplus successfully when available (3 ms)
+      ✓ should throw error when amount is zero or negative (12 ms)
+      ✓ should throw error when no compliance record exists (1 ms)
+      ✓ should throw error when no banked surplus available (1 ms)
+      ✓ should throw error when amount exceeds available balance
+      ✓ should allow applying entire available balance (1 ms)
+      ✓ should create bank entry with isApplied set to true (2 ms)
+      ✓ should improve deficit ship towards compliance (1 ms)
+      ✓ should allow applying banked surplus to ship with positive CB (1 ms)
+      ✓ should calculate correct CB after for various scenarios
+      ✓ should return correct banking summary structure (1 ms)
+      ✓ should check available balance before applying
+      ✓ should handle negative balance becoming positive
+
+PASS src/__tests__/ComputeComparisonUseCase.test.ts
+  ComputeComparisonUseCase
+    execute
+      ✓ should compute comparisons successfully when baseline exists (14 ms)
+      ✓ should throw error when no baseline is set (5 ms)
+      ✓ should exclude baseline route from comparisons
+      ✓ should apply filters correctly
+      ✓ should return empty array when only baseline exists
+      ✓ should mark routes as compliant based on target intensity
+      ✓ should calculate correct percentage differences
+
+PASS src/__tests__/CreatePoolUseCase.test.ts
+  CreatePoolUseCase
+    execute
+      ✓ should create pool successfully with valid members (3 ms)
+      ✓ should throw error when pool has less than 2 members (6 ms)
+      ✓ should throw error when total CB is negative (1 ms)
+      ✓ should accept pool when total CB is zero (1 ms)
+      ✓ should throw error when compliance record not found for a ship
+      ✓ should allocate surplus to deficit ships correctly (1 ms)
+      ✓ should not modify balances when all ships have surplus
+      ✓ should handle large pool with multiple deficit ships
+      ✓ should reject pool where deficit ship exits worse after pooling (2 ms)
+      ✓ should verify all compliance records exist before creating pool
+      ✓ should allocate partial surplus when not all deficit can be covered
+      ✓ should handle pool with exact balance (total CB = 0) (1 ms)
+
+FAIL src/__tests__/edge-cases.test.ts
+  Edge Cases Tests
+    Negative Compliance Balance Edge Cases
+      ✕ should prevent banking when CB is exactly zero (26 ms)
+      ✓ should prevent banking negative CB (5 ms)
+      ✕ should handle applying banked to ship with very large deficit (6 ms)
+      ✕ should handle multiple banking operations that exhaust surplus (10 ms)
+    Over-Apply Bank Edge Cases
+      ✓ should reject applying more than exact available balance (6 ms)
+      ✕ should allow applying exactly the available balance (6 ms)
+      ✕ should reject applying from already applied bank entries (11 ms)
+      ✓ should reject applying with negative amount (4 ms)
+      ✕ should handle applying to ship with positive CB (increasing surplus) (6 ms)
+      ✓ should track multiple apply operations correctly (11 ms)
+    Invalid Pool Edge Cases
+      ✕ should reject pool with only one ship (54 ms)
+      ✓ should reject pool where total CB is negative (4 ms)
+      ✓ should reject pool where deficit exceeds surplus (3 ms)
+      ✕ should accept pool where total CB is exactly zero (3 ms)
+      ✓ should reject pool with duplicate ships (5 ms)
+      ✓ should reject pool with missing ship compliance records (4 ms)
+      ✓ should handle pool with 3 ships where allocation is complex (6 ms)
+      ✓ should reject pool with all deficit ships (5 ms)
+      ✕ should accept pool with all surplus ships (4 ms)
+    Boundary Value Tests
+      ✕ should handle banking amount of 1 (4 ms)
+      ✕ should handle applying amount of 1 (3 ms)
+      ✕ should handle very large banking amounts (5 ms)
+      ✕ should handle pool with minimum valid total CB (>= 0) (7 ms)
+    Concurrent Operations Edge Cases
+      ✕ should handle rapid successive banking operations (2 ms)
+    Invalid Input Tests
+      ✓ should reject missing required fields in banking request (4 ms)
+      ✕ should reject invalid year format (1 ms)
+      ✓ should reject non-numeric amounts in banking (4 ms)
+      ✓ should handle malformed JSON in request body (4 ms)
+
+  ● Edge Cases Tests › Negative Compliance Balance Edge Cases › should prevent banking when CB is exactly zero
+
+    expect(received).toContain(expected) // indexOf
+
+    Expected substring: "no surplus"
+    Received string:    "No compliance record found for ship ZERO_CB in year 2024"
+
+      51 |
+      52 |       expect(response.status).toBe(400);
+    > 53 |       expect(response.body.error).toContain('no surplus');
+         |                                   ^
+      54 |     });
+      55 |
+      56 |     it('should prevent banking negative CB', async () => {
+
+      at Object.<anonymous> (src/__tests__/edge-cases.test.ts:53:35)
+
+  ● Edge Cases Tests › Negative Compliance Balance Edge Cases › should handle applying banked to ship with very large deficit
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 200
+
+      93 |         });
+      94 |
+    > 95 |       expect(response.status).toBe(201);
+         |                               ^
+      96 |       expect(response.body.cbBefore).toBe(-100000);
+      97 |       expect(response.body.cbAfter).toBe(-95000);
+      98 |     });
+
+      at Object.<anonymous> (src/__tests__/edge-cases.test.ts:95:31)
+
+  ● Edge Cases Tests › Negative Compliance Balance Edge Cases › should handle multiple banking operations that exhaust surplus
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 400
+    Received: 201
+
+      126 |         });
+      127 |
+    > 128 |       expect(response.status).toBe(400);
+          |                               ^
+      129 |       expect(response.body.error).toBeDefined();
+      130 |     });
+      131 |   });
+
+      at Object.<anonymous> (src/__tests__/edge-cases.test.ts:128:31)
+
+  ● Edge Cases Tests › Over-Apply Bank Edge Cases › should allow applying exactly the available balance
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 200
+
+      165 |         });
+      166 |
+    > 167 |       expect(response.status).toBe(201);
+          |                               ^
+      168 |       expect(response.body.applied).toBe(10000);
+      169 |     });
+      170 |
+
+      at Object.<anonymous> (src/__tests__/edge-cases.test.ts:167:31)
+
+  ● Edge Cases Tests › Over-Apply Bank Edge Cases › should reject applying from already applied bank entries
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 400
+    Received: 200
+
+      188 |         });
+      189 |
+    > 190 |       expect(response.status).toBe(400);
+          |                               ^
+      191 |       expect(response.body.error).toBeDefined();
+      192 |     });
+      193 |
+
+      at Object.<anonymous> (src/__tests__/edge-cases.test.ts:190:31)
+
+  ● Edge Cases Tests › Over-Apply Bank Edge Cases › should handle applying to ship with positive CB (increasing surplus)
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 400
+
+      214 |         });
+      215 |
+    > 216 |       expect(response.status).toBe(201);
+          |                               ^
+      217 |       expect(response.body.cbBefore).toBe(15000);
+      218 |       expect(response.body.cbAfter).toBe(20000);
+      219 |     });
+
+      at Object.<anonymous> (src/__tests__/edge-cases.test.ts:216:31)
+
+  ● Edge Cases Tests › Invalid Pool Edge Cases › should reject pool with only one ship
+
+    PrismaClientKnownRequestError: 
+    Invalid `prisma.shipCompliance.createMany()` invocation in
+    /Users/shantanubasumatary/Projects/varuna_task/backend/src/__tests__/setup.ts:43:31
+
+      40 });
+      41 
+      42 // Create test ship compliance records
+    → 43 await prisma.shipCompliance.createMany(
+    Unique constraint failed on the fields: (`ship_id`,`year`)
+
+      41 |
+      42 |   // Create test ship compliance records
+    > 43 |   await prisma.shipCompliance.createMany({
+         |   ^
+      44 |     data: [
+      45 |       {
+      46 |         shipId: 'TESTSHIP001',
+
+      at ei.handleRequestError (node_modules/@prisma/client/src/runtime/RequestHandler.ts:228:13)
+      at ei.handleAndLogRequestError (node_modules/@prisma/client/src/runtime/RequestHandler.ts:174:12)
+      at ei.request (node_modules/@prisma/client/src/runtime/RequestHandler.ts:143:12)
+      at a (node_modules/@prisma/client/src/runtime/getPrismaClient.ts:833:24)
+      at seedTestData (src/__tests__/setup.ts:43:3)
+      at Object.<anonymous> (src/__tests__/edge-cases.test.ts:31:5)
+
+  ● Edge Cases Tests › Invalid Pool Edge Cases › should accept pool where total CB is exactly zero
+
+    PrismaClientKnownRequestError: 
+    Invalid `prisma.route.createMany()` invocation in
+    /Users/shantanubasumatary/Projects/varuna_task/backend/src/__tests__/setup.ts:15:22
+
+      12 
+      13 export async function seedTestData() {
+      14   // Create test routes
+    → 15   await prisma.route.createMany(
+    Unique constraint failed on the fields: (`route_id`)
+
+      13 | export async function seedTestData() {
+      14 |   // Create test routes
+    > 15 |   await prisma.route.createMany({
+         |   ^
+      16 |     data: [
+      17 |       {
+      18 |         routeId: 'TEST001',
+
+      at ei.handleRequestError (node_modules/@prisma/client/src/runtime/RequestHandler.ts:228:13)
+      at ei.handleAndLogRequestError (node_modules/@prisma/client/src/runtime/RequestHandler.ts:174:12)
+      at ei.request (node_modules/@prisma/client/src/runtime/RequestHandler.ts:143:12)
+      at a (node_modules/@prisma/client/src/runtime/getPrismaClient.ts:833:24)
+      at seedTestData (src/__tests__/setup.ts:15:3)
+      at Object.<anonymous> (src/__tests__/edge-cases.test.ts:31:5)
+
+  ● Edge Cases Tests › Invalid Pool Edge Cases › should accept pool with all surplus ships
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 400
+
+      416 |         });
+      417 |
+    > 418 |       expect(response.status).toBe(201);
+          |                               ^
+      419 |       // All ships should keep their original CB
+      420 |       expect(response.body.members[0].cbAfter).toBeGreaterThanOrEqual(0);
+      421 |       expect(response.body.members[1].cbAfter).toBeGreaterThanOrEqual(0);
+
+      at Object.<anonymous> (src/__tests__/edge-cases.test.ts:418:31)
+
+  ● Edge Cases Tests › Boundary Value Tests › should handle banking amount of 1
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 400
+
+      433 |         });
+      434 |
+    > 435 |       expect(response.status).toBe(201);
+          |                               ^
+      436 |       expect(response.body.amountGco2eq).toBe(1);
+      437 |     });
+      438 |
+
+      at Object.<anonymous> (src/__tests__/edge-cases.test.ts:435:31)
+
+  ● Edge Cases Tests › Boundary Value Tests › should handle applying amount of 1
+
+    PrismaClientKnownRequestError: 
+    Invalid `prisma.shipCompliance.createMany()` invocation in
+    /Users/shantanubasumatary/Projects/varuna_task/backend/src/__tests__/setup.ts:43:31
+
+      40 });
+      41 
+      42 // Create test ship compliance records
+    → 43 await prisma.shipCompliance.createMany(
+    Unique constraint failed on the fields: (`ship_id`,`year`)
+
+      41 |
+      42 |   // Create test ship compliance records
+    > 43 |   await prisma.shipCompliance.createMany({
+         |   ^
+      44 |     data: [
+      45 |       {
+      46 |         shipId: 'TESTSHIP001',
+
+      at ei.handleRequestError (node_modules/@prisma/client/src/runtime/RequestHandler.ts:228:13)
+      at ei.handleAndLogRequestError (node_modules/@prisma/client/src/runtime/RequestHandler.ts:174:12)
+      at ei.request (node_modules/@prisma/client/src/runtime/RequestHandler.ts:143:12)
+      at a (node_modules/@prisma/client/src/runtime/getPrismaClient.ts:833:24)
+      at seedTestData (src/__tests__/setup.ts:43:3)
+      at Object.<anonymous> (src/__tests__/edge-cases.test.ts:31:5)
+
+  ● Edge Cases Tests › Boundary Value Tests › should handle very large banking amounts
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 400
+
+      485 |         });
+      486 |
+    > 487 |       expect(response.status).toBe(201);
+          |                               ^
+      488 |       expect(response.body.amountGco2eq).toBe(5000000);
+      489 |     });
+      490 |
+
+      at Object.<anonymous> (src/__tests__/edge-cases.test.ts:487:31)
+
+  ● Edge Cases Tests › Boundary Value Tests › should handle pool with minimum valid total CB (>= 0)
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 400
+
+      517 |         });
+      518 |
+    > 519 |       expect(response.status).toBe(201);
+          |                               ^
+      520 |     });
+      521 |   });
+      522 |
+
+      at Object.<anonymous> (src/__tests__/edge-cases.test.ts:519:31)
+
+  ● Edge Cases Tests › Concurrent Operations Edge Cases › should handle rapid successive banking operations
+
+    PrismaClientKnownRequestError: 
+    Invalid `prisma.route.createMany()` invocation in
+    /Users/shantanubasumatary/Projects/varuna_task/backend/src/__tests__/setup.ts:15:22
+
+      12 
+      13 export async function seedTestData() {
+      14   // Create test routes
+    → 15   await prisma.route.createMany(
+    Unique constraint failed on the fields: (`route_id`)
+
+      13 | export async function seedTestData() {
+      14 |   // Create test routes
+    > 15 |   await prisma.route.createMany({
+         |   ^
+      16 |     data: [
+      17 |       {
+      18 |         routeId: 'TEST001',
+
+      at ei.handleRequestError (node_modules/@prisma/client/src/runtime/RequestHandler.ts:228:13)
+      at ei.handleAndLogRequestError (node_modules/@prisma/client/src/runtime/RequestHandler.ts:174:12)
+      at ei.request (node_modules/@prisma/client/src/runtime/RequestHandler.ts:143:12)
+      at a (node_modules/@prisma/client/src/runtime/getPrismaClient.ts:833:24)
+      at seedTestData (src/__tests__/setup.ts:15:3)
+      at Object.<anonymous> (src/__tests__/edge-cases.test.ts:31:5)
+
+  ● Edge Cases Tests › Invalid Input Tests › should reject invalid year format
+
+    PrismaClientKnownRequestError: 
+    Invalid `prisma.route.createMany()` invocation in
+    /Users/shantanubasumatary/Projects/varuna_task/backend/src/__tests__/setup.ts:15:22
+
+      12 
+      13 export async function seedTestData() {
+      14   // Create test routes
+    → 15   await prisma.route.createMany(
+    Unique constraint failed on the fields: (`route_id`)
+
+      13 | export async function seedTestData() {
+      14 |   // Create test routes
+    > 15 |   await prisma.route.createMany({
+         |   ^
+      16 |     data: [
+      17 |       {
+      18 |         routeId: 'TEST001',
+
+      at ei.handleRequestError (node_modules/@prisma/client/src/runtime/RequestHandler.ts:228:13)
+      at ei.handleAndLogRequestError (node_modules/@prisma/client/src/runtime/RequestHandler.ts:174:12)
+      at ei.request (node_modules/@prisma/client/src/runtime/RequestHandler.ts:143:12)
+      at a (node_modules/@prisma/client/src/runtime/getPrismaClient.ts:833:24)
+      at seedTestData (src/__tests__/setup.ts:15:3)
+      at Object.<anonymous> (src/__tests__/edge-cases.test.ts:31:5)
+
+FAIL src/__tests__/integration.test.ts
+  Integration Tests - HTTP Endpoints
+    Routes API
+      GET /routes
+        ✓ should return all routes (15 ms)
+        ✓ should filter routes by vessel type (6 ms)
+        ✕ should filter routes by year (64 ms)
+        ✓ should filter routes by fuel type (5 ms)
+      POST /routes/:routeId/baseline
+        ✓ should set a route as baseline (8 ms)
+        ✓ should unset previous baseline when setting new one (13 ms)
+        ✓ should return 404 for non-existent route (4 ms)
+      GET /routes/comparison
+        ✓ should return 400 when no baseline is set (5 ms)
+        ✓ should return comparisons when baseline is set (9 ms)
+    Compliance API
+      GET /compliance/cb
+        ✓ should return compliance balance for ship and year (5 ms)
+        ✓ should compute CB even for new ships (4 ms)
+        ✓ should return 400 when missing required parameters (4 ms)
+      GET /compliance/adjusted-cb
+        ✕ should return adjusted CB with banked amount (5 ms)
+        ✓ should handle ship with no banking entries (6 ms)
+    Banking API
+      POST /banking/bank
+        ✓ should bank surplus successfully (16 ms)
+        ✕ should reject banking deficit ship (4 ms)
+        ✕ should reject banking more than available surplus (4 ms)
+        ✓ should reject non-positive amounts (5 ms)
+      POST /banking/apply
+        ✕ should apply banked surplus successfully (3 ms)
+        ✕ should reject applying more than available banked (6 ms)
+        ✕ should reject applying when no banked surplus (3 ms)
+      GET /banking/records
+        ✕ should return all bank entries for ship (5 ms)
+        ✓ should return empty array for ship with no entries (4 ms)
+    Pooling API
+      POST /pools
+        ✕ should create pool successfully (4 ms)
+        ✓ should reject pool with less than 2 members (3 ms)
+        ✓ should reject pool with negative total CB (3 ms)
+        ✓ should reject pool with non-existent ship (4 ms)
+      GET /pools/:year
+        ✕ should return pools for specified year (7 ms)
+        ✓ should return empty array for year with no pools (5 ms)
+
+  ● Integration Tests - HTTP Endpoints › Routes API › GET /routes › should filter routes by year
+
+    PrismaClientKnownRequestError: 
+    Invalid `prisma.shipCompliance.createMany()` invocation in
+    /Users/shantanubasumatary/Projects/varuna_task/backend/src/__tests__/setup.ts:43:31
+
+      40 });
+      41 
+      42 // Create test ship compliance records
+    → 43 await prisma.shipCompliance.createMany(
+    Unique constraint failed on the fields: (`ship_id`,`year`)
+
+      41 |
+      42 |   // Create test ship compliance records
+    > 43 |   await prisma.shipCompliance.createMany({
+         |   ^
+      44 |     data: [
+      45 |       {
+      46 |         shipId: 'TESTSHIP001',
+
+      at ei.handleRequestError (node_modules/@prisma/client/src/runtime/RequestHandler.ts:228:13)
+      at ei.handleAndLogRequestError (node_modules/@prisma/client/src/runtime/RequestHandler.ts:174:12)
+      at ei.request (node_modules/@prisma/client/src/runtime/RequestHandler.ts:143:12)
+      at a (node_modules/@prisma/client/src/runtime/getPrismaClient.ts:833:24)
+      at seedTestData (src/__tests__/setup.ts:43:3)
+      at Object.<anonymous> (src/__tests__/integration.test.ts:32:5)
+
+  ● Integration Tests - HTTP Endpoints › Compliance API › GET /compliance/adjusted-cb › should return adjusted CB with banked amount
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 404
+
+      183 |           .query({ shipId: 'TESTSHIP001', year: 2024 });
+      184 |
+    > 185 |         expect(response.status).toBe(200);
+          |                                 ^
+      186 |         expect(response.body).toHaveProperty('originalCb');
+      187 |         expect(response.body).toHaveProperty('bankedAmount');
+      188 |         expect(response.body).toHaveProperty('adjustedCb');
+
+      at Object.<anonymous> (src/__tests__/integration.test.ts:185:33)
+
+  ● Integration Tests - HTTP Endpoints › Banking API › POST /banking/bank › should reject banking deficit ship
+
+    expect(received).toContain(expected) // indexOf
+
+    Expected substring: "no surplus"
+    Received string:    "No compliance record found for ship TESTSHIP002 in year 2024"
+
+      231 |
+      232 |         expect(response.status).toBe(400);
+    > 233 |         expect(response.body.error).toContain('no surplus');
+          |                                     ^
+      234 |       });
+      235 |
+      236 |       it('should reject banking more than available surplus', async () => {
+
+      at Object.<anonymous> (src/__tests__/integration.test.ts:233:37)
+
+  ● Integration Tests - HTTP Endpoints › Banking API › POST /banking/bank › should reject banking more than available surplus
+
+    expect(received).toContain(expected) // indexOf
+
+    Expected substring: "exceeds"
+    Received string:    "No compliance record found for ship TESTSHIP001 in year 2024"
+
+      244 |
+      245 |         expect(response.status).toBe(400);
+    > 246 |         expect(response.body.error).toContain('exceeds');
+          |                                     ^
+      247 |       });
+      248 |
+      249 |       it('should reject non-positive amounts', async () => {
+
+      at Object.<anonymous> (src/__tests__/integration.test.ts:246:37)
+
+  ● Integration Tests - HTTP Endpoints › Banking API › POST /banking/apply › should apply banked surplus successfully
+
+    PrismaClientKnownRequestError: 
+    Invalid `prisma.route.createMany()` invocation in
+    /Users/shantanubasumatary/Projects/varuna_task/backend/src/__tests__/setup.ts:15:22
+
+      12 
+      13 export async function seedTestData() {
+      14   // Create test routes
+    → 15   await prisma.route.createMany(
+    Unique constraint failed on the fields: (`route_id`)
+
+      13 | export async function seedTestData() {
+      14 |   // Create test routes
+    > 15 |   await prisma.route.createMany({
+         |   ^
+      16 |     data: [
+      17 |       {
+      18 |         routeId: 'TEST001',
+
+      at ei.handleRequestError (node_modules/@prisma/client/src/runtime/RequestHandler.ts:228:13)
+      at ei.handleAndLogRequestError (node_modules/@prisma/client/src/runtime/RequestHandler.ts:174:12)
+      at ei.request (node_modules/@prisma/client/src/runtime/RequestHandler.ts:143:12)
+      at a (node_modules/@prisma/client/src/runtime/getPrismaClient.ts:833:24)
+      at seedTestData (src/__tests__/setup.ts:15:3)
+      at Object.<anonymous> (src/__tests__/integration.test.ts:32:5)
+
+  ● Integration Tests - HTTP Endpoints › Banking API › POST /banking/apply › should reject applying more than available banked
+
+    expect(received).toContain(expected) // indexOf
+
+    Expected substring: "exceeds"
+    Received string:    "Ship TESTSHIP002 has no banked surplus to apply"
+
+      299 |
+      300 |         expect(response.status).toBe(400);
+    > 301 |         expect(response.body.error).toContain('exceeds');
+          |                                     ^
+      302 |       });
+      303 |
+      304 |       it('should reject applying when no banked surplus', async () => {
+
+      at Object.<anonymous> (src/__tests__/integration.test.ts:301:37)
+
+  ● Integration Tests - HTTP Endpoints › Banking API › POST /banking/apply › should reject applying when no banked surplus
+
+    PrismaClientKnownRequestError: 
+    Invalid `prisma.shipCompliance.createMany()` invocation in
+    /Users/shantanubasumatary/Projects/varuna_task/backend/src/__tests__/setup.ts:43:31
+
+      40 });
+      41 
+      42 // Create test ship compliance records
+    → 43 await prisma.shipCompliance.createMany(
+    Unique constraint failed on the fields: (`ship_id`,`year`)
+
+      41 |
+      42 |   // Create test ship compliance records
+    > 43 |   await prisma.shipCompliance.createMany({
+         |   ^
+      44 |     data: [
+      45 |       {
+      46 |         shipId: 'TESTSHIP001',
+
+      at ei.handleRequestError (node_modules/@prisma/client/src/runtime/RequestHandler.ts:228:13)
+      at ei.handleAndLogRequestError (node_modules/@prisma/client/src/runtime/RequestHandler.ts:174:12)
+      at ei.request (node_modules/@prisma/client/src/runtime/RequestHandler.ts:143:12)
+      at a (node_modules/@prisma/client/src/runtime/getPrismaClient.ts:833:24)
+      at seedTestData (src/__tests__/setup.ts:43:3)
+      at Object.<anonymous> (src/__tests__/integration.test.ts:32:5)
+
+  ● Integration Tests - HTTP Endpoints › Banking API › GET /banking/records › should return all bank entries for ship
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 200
+
+      341 |           .query({ shipId: 'TESTSHIP001' });
+      342 |
+    > 343 |         expect(response.status).toBe(201);
+          |                                 ^
+      344 |         expect(Array.isArray(response.body)).toBe(true);
+      345 |         expect(response.body.length).toBe(2);
+      346 |       });
+
+      at Object.<anonymous> (src/__tests__/integration.test.ts:343:33)
+
+  ● Integration Tests - HTTP Endpoints › Pooling API › POST /pools › should create pool successfully
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 400
+
+      370 |           });
+      371 |
+    > 372 |         expect(response.status).toBe(201);
+          |                                 ^
+      373 |         expect(response.body).toHaveProperty('id');
+      374 |         expect(response.body.year).toBe(2024);
+      375 |         expect(response.body.members.length).toBe(2);
+
+      at Object.<anonymous> (src/__tests__/integration.test.ts:372:33)
+
+  ● Integration Tests - HTTP Endpoints › Pooling API › GET /pools/:year › should return pools for specified year
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 404
+
+      446 |         const response = await request(app).get('/pools/2024');
+      447 |
+    > 448 |         expect(response.status).toBe(200);
+          |                                 ^
+      449 |         expect(Array.isArray(response.body)).toBe(true);
+      450 |         expect(response.body.length).toBe(1);
+      451 |         expect(response.body[0].year).toBe(2024);
+
+      at Object.<anonymous> (src/__tests__/integration.test.ts:448:33)
+
+Test Suites: 2 failed, 7 passed, 9 total
+Tests:       25 failed, 108 passed, 133 total
+Snapshots:   0 total
+Time:        2.805 s, estimated 4 s
+Ran all test suites.

@@ -1,8 +1,8 @@
-import { BankSurplusUseCase, BankSurplusRequest } from '../BankSurplusUseCase';
-import type { BankRepository } from '../../../ports/BankRepository';
-import type { ComplianceRepository } from '../../../ports/ComplianceRepository';
-import type { BankEntry } from '../../../domain/models/BankEntry';
-import type { ComplianceBalance } from '../../../domain/models/ComplianceBalance';
+import { BankSurplusUseCase, BankSurplusRequest } from '../core/application/usecases/BankSurplusUseCase';
+import type { BankRepository } from '../core/ports/BankRepository';
+import type { ComplianceRepository } from '../core/ports/ComplianceRepository';
+import type { BankEntry } from '../core/domain/models/BankEntry';
+import type { ComplianceBalance } from '../core/domain/models/ComplianceBalance';
 
 describe('BankSurplusUseCase', () => {
   let useCase: BankSurplusUseCase;

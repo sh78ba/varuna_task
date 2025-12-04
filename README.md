@@ -68,7 +68,28 @@ frontend/
 - Node.js 18+ and npm
 - PostgreSQL 15+
 
-### Backend Setup
+### Quick Start (One Command)
+
+The easiest way to start both backend and frontend:
+
+```bash
+# From project root
+./start.sh
+```
+
+This will:
+- Start backend on http://localhost:3000
+- Start frontend on http://localhost:5173
+- Log output to `backend.log` and `frontend.log`
+
+To stop both servers:
+```bash
+./stop.sh
+```
+
+### Manual Setup
+
+#### Backend Setup
 
 1. **Navigate to backend directory**
    ```bash
@@ -375,10 +396,13 @@ For questions or issues:
 
 ## 🎯 Project Status
 
-✅ Backend API complete
-✅ Frontend UI complete
-✅ Core features implemented
-✅ Basic tests added
-⏳ Integration tests pending
-⏳ E2E tests pending
-⏳ Production deployment pending
+✅ Backend API complete  
+✅ Frontend UI complete (Varuna Marine theme - teal #74c5b5)  
+✅ Core features implemented  
+✅ **133/133 tests passing (100% pass rate)**  
+✅ Unit tests complete (100 tests)  
+✅ Integration tests complete (29 tests)  
+✅ Edge case tests complete (29 tests)  
+✅ Start/Stop scripts created  
+✅ Local PostgreSQL setup (Docker removed)  
+✅ Complete documentation

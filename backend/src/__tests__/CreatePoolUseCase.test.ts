@@ -1,8 +1,8 @@
-import { CreatePoolUseCase } from '../CreatePoolUseCase';
-import type { PoolRepository } from '../../../ports/PoolRepository';
-import type { ComplianceRepository } from '../../../ports/ComplianceRepository';
-import type { CreatePoolRequest, Pool } from '../../../domain/models/Pool';
-import type { ComplianceBalance } from '../../../domain/models/ComplianceBalance';
+import { CreatePoolUseCase } from '../core/application/usecases/CreatePoolUseCase';
+import { PoolRepository } from '../core/ports/PoolRepository';
+import { ComplianceRepository } from '../core/ports/ComplianceRepository';
+import type { CreatePoolRequest, Pool } from '../core/domain/models/Pool';
+import type { ComplianceBalance } from '../core/domain/models/ComplianceBalance';
 
 describe('CreatePoolUseCase', () => {
   let useCase: CreatePoolUseCase;
