@@ -41,9 +41,6 @@ coverage/
 jest-cache/
 jest-output/
 
-# Docker
-docker-data/
-
 # Cache
 .cache/
 .eslintcache

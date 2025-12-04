@@ -4,52 +4,40 @@
 
 Before starting, ensure you have:
 - ✅ Node.js 18+ installed (`node --version`)
-- ✅ PostgreSQL 15+ installed or Docker Desktop running
+- ✅ PostgreSQL 15+ installed and running
 - ✅ npm installed (`npm --version`)
 
 ## 🚀 Quick Start (5 minutes)
 
-### Option 1: With Docker (Recommended)
-
 ```bash
-# 1. Start PostgreSQL with Docker Compose
-cd backend
-docker-compose up -d
+# 1. Ensure PostgreSQL is running and create database
+# Create database: fueleu_maritime
 
 # 2. Install backend dependencies
+cd backend
 npm install
 
-# 3. Generate Prisma Client
+# 3. Configure environment
+# Edit .env file with your PostgreSQL credentials
+
+# 4. Generate Prisma Client
 npx prisma generate
 
-# 4. Run migrations and seed database
+# 5. Run migrations and seed database
 npx prisma migrate dev --name init
 npm run prisma:seed
 
-# 5. Start backend server
+# 6. Start backend server
 npm run dev
 # Backend running on http://localhost:3000
 
-# 6. In a new terminal, setup frontend
+# 7. In a new terminal, setup frontend
 cd ../frontend
 npm install
 
-# 7. Start frontend
-npm start
-# Frontend running on http://localhost:3001
-```
-
-### Option 2: With Local PostgreSQL
-
-```bash
-# 1. Ensure PostgreSQL is running
-# Create database: fueleu_maritime
-
-# 2. Update backend/.env with your credentials
-cd backend
-# Edit .env file
-
-# 3. Follow steps 2-7 from Option 1
+# 8. Start frontend
+npm run dev
+# Frontend running on http://localhost:5173
 ```
 
 ## 🧪 Verify Installation
@@ -83,9 +71,9 @@ curl http://localhost:3000/routes
 Error: P1001: Can't reach database server
 ```
 **Fix:**
-- If using Docker: Run `docker-compose up -d` in backend folder
-- If using local PostgreSQL: Ensure it's running on port 5432
+- Ensure PostgreSQL is running on port 5432
 - Check `backend/.env` for correct DATABASE_URL
+- Verify database `fueleu_maritime` exists
 
 ### Port Already in Use
 ```

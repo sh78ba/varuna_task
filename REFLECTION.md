@@ -190,7 +190,7 @@ Generate tests first (from specifications), then implement to pass them.
 ### 3. Infrastructure as Code from Start
 
 **What Happened:**
-Database setup required manual intervention (Docker not running).
+Database setup required manual intervention (PostgreSQL configuration).
 
 **Better Approach:**
 Include infrastructure setup in initial project generation.
@@ -198,7 +198,7 @@ Include infrastructure setup in initial project generation.
 **Should Have:**
 ```
 Project prompt includes:
-- Docker Compose for PostgreSQL
+- Local PostgreSQL setup
 - Migration scripts with error handling
 - Seed data with validation
 - Health checks for all services
@@ -264,7 +264,7 @@ For all API endpoints:
 ### What Requires Caution
 
 1. **External Dependencies**
-   - AI assumes services are running (database, Docker)
+   - AI assumes services are running (database)
    - May suggest outdated packages
    - Check compatibility before installing
 

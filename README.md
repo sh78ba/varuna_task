@@ -67,7 +67,6 @@ frontend/
 
 - Node.js 18+ and npm
 - PostgreSQL 15+
-- Docker (optional, for database)
 
 ### Backend Setup
 
@@ -82,13 +81,6 @@ frontend/
    ```
 
 3. **Start PostgreSQL database**
-   
-   Option A: Using Docker Compose
-   ```bash
-   docker-compose up -d
-   ```
-
-   Option B: Local PostgreSQL
    - Ensure PostgreSQL is running on `localhost:5432`
    - Create database: `fueleu_maritime`
 

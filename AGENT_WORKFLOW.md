@@ -194,7 +194,7 @@ Complete banking interface with KPI cards, action forms, and records table
 ### Where AI Failed or Hallucinated
 
 1. **Database Connection**
-   - AI assumed PostgreSQL was running; had to add Docker Compose setup
+   - AI assumed PostgreSQL was running; had to configure local setup
    - Generated migration command without checking DB availability
 
 2. **Import Paths**
@@ -343,7 +343,7 @@ The AI excelled at:
 - Maintaining architectural patterns
 
 Areas requiring human oversight:
-- Infrastructure setup (database, Docker)
+- Infrastructure setup (database)
 - Business logic verification
 - Testing and edge cases
 - Production deployment considerations
