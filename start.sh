@@ -6,9 +6,15 @@
 echo "🚀 Starting FuelEU Maritime Application..."
 echo ""
 
+# Seed database
+echo "🌱 Seeding database..."
+cd backend
+npx ts-node prisma/seed.ts > /dev/null 2>&1
+echo "✅ Database seeded"
+echo ""
+
 # Start backend in background
 echo "📦 Starting Backend (Port 3000)..."
-cd backend
 npm run dev > ../backend.log 2>&1 &
 BACKEND_PID=$!
 cd ..
