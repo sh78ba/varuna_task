@@ -51,16 +51,16 @@ export const CompareTab: React.FC = () => {
 
   return (
     <div className="space-y-6 animate-fadeIn">
-      <div className="bg-gradient-to-r from-green-600 to-teal-600 text-white p-6 rounded-xl shadow-lg">
+      <div className="bg-gradient-to-r from-slate-800 via-teal-900 to-slate-800 text-white p-6 rounded-xl shadow-lg border border-teal-500/30">
         <h2 className="text-3xl font-bold mb-2">📊 Route Comparison</h2>
-        <p className="text-green-100">Compare GHG intensity against baseline and target values</p>
+        <p className="text-teal-300">Compare GHG intensity against baseline and target values</p>
       </div>
-      <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100">
+      <div className="bg-slate-800 p-8 rounded-xl shadow-lg border border-teal-500/20">
 
         {/* Filters */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-200 mb-2">
               Vessel Type
             </label>
             <select
@@ -68,7 +68,7 @@ export const CompareTab: React.FC = () => {
               onChange={(e) =>
                 setFilters({ ...filters, vesselType: e.target.value || undefined })
               }
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 bg-slate-700 border border-teal-500/30 text-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
             >
               <option value="">All</option>
               {vesselTypes.map((type) => (
@@ -80,7 +80,7 @@ export const CompareTab: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-200 mb-2">
               Fuel Type
             </label>
             <select
@@ -88,7 +88,7 @@ export const CompareTab: React.FC = () => {
               onChange={(e) =>
                 setFilters({ ...filters, fuelType: e.target.value || undefined })
               }
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 bg-slate-700 border border-teal-500/30 text-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
             >
               <option value="">All</option>
               {fuelTypes.map((type) => (
@@ -100,7 +100,7 @@ export const CompareTab: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Year</label>
+            <label className="block text-sm font-medium text-gray-200 mb-2">Year</label>
             <select
               value={filters.year || ''}
               onChange={(e) =>
@@ -109,7 +109,7 @@ export const CompareTab: React.FC = () => {
                   year: e.target.value ? parseInt(e.target.value) : undefined,
                 })
               }
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 bg-slate-700 border border-teal-500/30 text-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
             >
               <option value="">All</option>
               {years.map((year) => (
@@ -128,26 +128,26 @@ export const CompareTab: React.FC = () => {
         )}
 
         {loading ? (
-          <div className="text-center py-8 text-gray-500">Loading...</div>
+          <div className="text-center py-8 text-gray-300">Loading...</div>
         ) : comparisons.length === 0 ? (
-          <div className="text-center py-8 text-gray-500">
+          <div className="text-center py-8 text-gray-300">
             No baseline set or no comparisons available
           </div>
         ) : (
           <>
             {/* Chart */}
             <div className="mb-8">
-              <h3 className="text-lg font-semibold text-gray-700 mb-4">
+              <h3 className="text-lg font-semibold text-gray-200 mb-4">
                 GHG Intensity Comparison
               </h3>
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={chartData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis label={{ value: 'gCO₂e/MJ', angle: -90, position: 'insideLeft' }} />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="baseline" fill="#3b82f6" name="Baseline" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                  <XAxis dataKey="name" stroke="#94a3b8" />
+                  <YAxis label={{ value: 'gCO₂e/MJ', angle: -90, position: 'insideLeft' }} stroke="#94a3b8" />
+                  <Tooltip contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #14b8a6', color: '#e2e8f0' }} />
+                  <Legend wrapperStyle={{ color: '#e2e8f0' }} />
+                  <Bar dataKey="baseline" fill="#14b8a6" name="Baseline" />
                   <Bar dataKey="comparison" fill="#10b981" name="Comparison" />
                   <Bar dataKey="target" fill="#ef4444" name="Target (89.34)" />
                 </BarChart>
@@ -155,42 +155,42 @@ export const CompareTab: React.FC = () => {
             </div>
 
             {/* Table */}
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
+            <div className="overflow-x-auto rounded-lg border border-teal-500/30">
+              <table className="min-w-full divide-y divide-teal-500/20">
+                <thead className="bg-slate-900/50">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-teal-400 uppercase tracking-wider">
                       Route ID
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-teal-400 uppercase tracking-wider">
                       Baseline Intensity
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-teal-400 uppercase tracking-wider">
                       Comparison Intensity
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-teal-400 uppercase tracking-wider">
                       % Difference
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-teal-400 uppercase tracking-wider">
                       Compliant
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="bg-slate-800/50 divide-y divide-teal-500/10">
                   {comparisons.map((comp) => (
-                    <tr key={comp.comparison.routeId}>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                    <tr key={comp.comparison.routeId} className="hover:bg-slate-700/30">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-200">
                         {comp.comparison.routeId}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                         {comp.baseline.ghgIntensity.toFixed(2)} gCO₂e/MJ
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                         {comp.comparison.ghgIntensity.toFixed(2)} gCO₂e/MJ
                       </td>
                       <td
                         className={`px-6 py-4 whitespace-nowrap text-sm font-medium ${
-                          comp.percentDiff < 0 ? 'text-green-600' : 'text-red-600'
+                          comp.percentDiff < 0 ? 'text-green-400' : 'text-red-400'
                         }`}
                       >
                         {comp.percentDiff > 0 ? '+' : ''}
@@ -198,11 +198,11 @@ export const CompareTab: React.FC = () => {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm">
                         {comp.compliant ? (
-                          <span className="px-2 py-1 text-xs bg-green-100 text-green-800 rounded">
+                          <span className="px-2 py-1 text-xs bg-green-500/20 text-green-400 border border-green-500/30 rounded">
                             ✓ Compliant
                           </span>
                         ) : (
-                          <span className="px-2 py-1 text-xs bg-red-100 text-red-800 rounded">
+                          <span className="px-2 py-1 text-xs bg-red-500/20 text-red-400 border border-red-500/30 rounded">
                             ✗ Non-Compliant
                           </span>
                         )}
